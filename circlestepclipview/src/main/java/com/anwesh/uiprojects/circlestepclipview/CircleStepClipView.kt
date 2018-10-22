@@ -17,18 +17,19 @@ val steps : Int = 10
 fun Canvas.drawCSCNode(i : Int, scale : Float, paint : Paint) {
     val w : Float = width.toFloat()
     val h : Float = height.toFloat()
-    val gap : Float = w / (nodes + 1)
+    val gap : Float = h / (nodes + 1)
+    val sFactor = 1f - 2 * (i % 2)
     val r : Float = gap / 3
     val barSize : Float = (2 * r) / steps
     val osc : Float = 1f / steps
     paint.color = Color.parseColor("#283593")
     save()
     translate(w/2, gap + i * gap)
-    for (j in 0..1) {
+    for (j in 0..steps-1) {
         val sc : Float = Math.min(osc, Math.max(0f, scale - osc * j)) * steps
         val y : Float = -r + barSize * j
         save()
-        translate(w/2 * sc, 0f)
+        translate((w/2 - r) * sc * sFactor, 0f)
         val path : Path = Path()
         path.addRect(RectF(-r, y, r, y + barSize), Path.Direction.CCW)
         clipPath(path)
@@ -83,7 +84,7 @@ class CircleStepClipView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(30)
                     view.invalidate()
                 } catch(ex : Exception) {
 
