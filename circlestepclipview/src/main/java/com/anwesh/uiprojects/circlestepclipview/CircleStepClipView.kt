@@ -172,4 +172,27 @@ class CircleStepClipView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : CircleStepClipView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val csc : CircleStepClip = CircleStepClip(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            csc.draw(canvas, paint)
+            animator.animate {
+                csc.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            csc.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
