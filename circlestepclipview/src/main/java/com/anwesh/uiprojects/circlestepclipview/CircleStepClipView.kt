@@ -84,7 +84,7 @@ class CircleStepClipView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(30)
+                    Thread.sleep(50L / steps)
                     view.invalidate()
                 } catch(ex : Exception) {
 
