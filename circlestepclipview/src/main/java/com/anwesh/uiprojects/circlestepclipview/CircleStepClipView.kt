@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.circlestepclipview
  * Created by anweshmishra on 22/10/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.content.Context
@@ -195,6 +196,15 @@ class CircleStepClipView(ctx : Context) : View(ctx) {
             csc.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+
+        fun create(activity : Activity) : CircleStepClipView {
+            val view : CircleStepClipView = CircleStepClipView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
